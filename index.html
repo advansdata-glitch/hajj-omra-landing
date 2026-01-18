@@ -1,176 +1,902 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NUSUKA – Smart Companion for Umrah & Hajj</title>
-  <meta name="description" content="A smart digital companion for Umrah and Hajj. Offline-first, multilingual, trusted guidance for pilgrims." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MANASIKI – Smart Companion for Umrah & Hajj | مناسكي</title>
+
+  <!-- SEO -->
+  <meta name="description" content="MANASIKI is a multilingual, offline-first digital companion for Umrah & Hajj. Step-by-step educational guidance, preparation tools, and optional B2B SaaS for agencies." />
+  <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#0f3d3e" />
+  <link rel="icon" href="data:," />
+
+  <!-- Social preview -->
+  <meta property="og:title" content="MANASIKI – Smart Companion for Umrah & Hajj" />
+  <meta property="og:description" content="Offline-first • Multilingual • Pilgrim-focused • Agency-ready SaaS" />
+  <meta property="og:type" content="website" />
+
   <style>
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      background: #0f3d3e;
-      color: #ffffff;
-      line-height: 1.6;
+    :root{
+      --bg: #0b2f30;
+      --bg2:#0f3d3e;
+      --card:#124f52;
+      --card2:#0f4447;
+      --text:#ffffff;
+      --muted: rgba(255,255,255,.82);
+      --muted2: rgba(255,255,255,.68);
+      --accent:#e6c36a;
+      --accent2:#d9b353;
+      --danger:#ffb4b4;
+      --border: rgba(255,255,255,.10);
+      --shadow: 0 18px 50px rgba(0,0,0,.25);
+      --radius: 16px;
     }
-    header {
-      padding: 80px 20px;
-      text-align: center;
-      background: linear-gradient(135deg, #0f3d3e, #1b6b6f);
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      background: radial-gradient(1200px 700px at 30% 10%, rgba(230,195,106,.12), transparent 60%),
+                  linear-gradient(135deg, var(--bg2), var(--bg));
+      color: var(--text);
+      line-height:1.65;
     }
-    h1 {
-      font-size: 2.6rem;
-      margin-bottom: 10px;
+    a{ color: var(--accent); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+
+    /* Top bar */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: rgba(11,47,48,.55);
+      border-bottom: 1px solid var(--border);
     }
-    h2 {
-      font-size: 1.8rem;
-      margin-top: 50px;
-      margin-bottom: 15px;
+    .topbar-inner{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
     }
-    p {
-      max-width: 900px;
-      margin: 0 auto 20px;
-      font-size: 1.05rem;
-      opacity: 0.95;
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      min-width: 200px;
     }
-    .cta {
-      margin-top: 30px;
+    .logo{
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(230,195,106,.95), rgba(230,195,106,.55));
+      box-shadow: var(--shadow);
+      display:grid;
+      place-items:center;
+      color: #0b2f30;
+      font-weight: 900;
+      letter-spacing: .5px;
     }
-    .cta a {
-      background: #e6c36a;
-      color: #0f3d3e;
-      padding: 14px 26px;
-      border-radius: 6px;
-      text-decoration: none;
+    .brand h3{
+      margin:0;
+      font-size: 1rem;
+      line-height:1.1;
+    }
+    .brand small{
+      display:block;
+      color: var(--muted2);
+      margin-top: 2px;
+      font-weight: 500;
+    }
+    .nav{
+      display:flex;
+      align-items:center;
+      gap: 14px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .nav a{
+      color: var(--muted);
       font-weight: 600;
-      margin: 5px;
-      display: inline-block;
+      font-size: .95rem;
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid transparent;
     }
-    section {
-      padding: 60px 20px;
-      background: #124f52;
-      border-top: 1px solid rgba(255,255,255,0.08);
+    .nav a:hover{
+      border-color: var(--border);
+      background: rgba(255,255,255,.04);
+      text-decoration:none;
     }
-    .box {
-      max-width: 1000px;
-      margin: auto;
+    .lang{
+      display:flex;
+      align-items:center;
+      gap: 10px;
     }
-    ul {
-      max-width: 900px;
-      margin: auto;
-      padding-left: 20px;
+    .lang label{
+      color: var(--muted2);
+      font-size: .9rem;
+      white-space:nowrap;
     }
-    li {
+    select{
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 9px 12px;
+      outline: none;
+      font-weight: 700;
+      cursor:pointer;
+    }
+
+    /* Layout */
+    .wrap{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 16px 80px;
+    }
+
+    /* Hero */
+    .hero{
+      padding: 56px 0 26px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 18px;
+      align-items:stretch;
+    }
+    @media (max-width: 920px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .brand{ min-width:auto; }
+    }
+    .hero-card{
+      background: rgba(18,79,82,.60);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px;
+      box-shadow: var(--shadow);
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      background: rgba(230,195,106,.14);
+      border: 1px solid rgba(230,195,106,.30);
+      color: var(--accent);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight: 800;
+      letter-spacing: .3px;
+      font-size: .92rem;
+    }
+    .hero h1{
+      margin: 14px 0 10px;
+      font-size: 2.4rem;
+      line-height: 1.18;
+    }
+    .hero p{
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 60ch;
+    }
+    .cta{
+      margin-top: 18px;
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      font-weight: 900;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+      box-shadow: 0 10px 30px rgba(0,0,0,.20);
+      cursor:pointer;
+    }
+    .btn:hover{ background: rgba(255,255,255,.08); text-decoration:none; }
+    .btn.primary{
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-color: rgba(0,0,0,.12);
+      color: #0b2f30;
+    }
+    .btn.primary:hover{ filter: brightness(1.02); }
+
+    .hero-side{
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+    }
+    .mini{
+      background: rgba(15,68,71,.55);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+    .mini h4{
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
+    .mini p{
+      margin: 0;
+      color: var(--muted);
+      font-size: .98rem;
+    }
+
+    /* Sections */
+    section{
+      margin-top: 22px;
+      padding-top: 24px;
+    }
+    .section-title{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 14px;
       margin-bottom: 10px;
     }
-    .ar {
-      direction: rtl;
-      text-align: right;
-      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    .section-title h2{
+      margin: 0;
+      font-size: 1.65rem;
+      letter-spacing: .2px;
     }
-    footer {
-      text-align: center;
-      padding: 40px 20px;
-      font-size: 0.9rem;
-      opacity: 0.8;
-      background: #0b2f30;
+    .section-title small{
+      color: var(--muted2);
+      font-weight: 700;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 12px;
+    }
+    .card{
+      background: rgba(18,79,82,.55);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: 0 14px 40px rgba(0,0,0,.18);
+    }
+    .card h3{
+      margin: 0 0 8px;
+      font-size: 1.08rem;
+    }
+    .card p{ margin:0; color: var(--muted); }
+    .span-6{ grid-column: span 6; }
+    .span-4{ grid-column: span 4; }
+    .span-8{ grid-column: span 8; }
+    .span-12{ grid-column: span 12; }
+    @media (max-width: 920px){
+      .span-6,.span-4,.span-8{ grid-column: span 12; }
+    }
+
+    .list{
+      margin: 0;
+      padding: 0 18px;
+      color: var(--muted);
+    }
+    .list li{ margin: 8px 0; }
+
+    .note{
+      margin-top: 10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(230,195,106,.10);
+      border: 1px solid rgba(230,195,106,.22);
+      color: rgba(255,255,255,.86);
+      font-weight: 650;
+    }
+    .note strong{ color: var(--accent); }
+
+    /* FAQ */
+    details{
+      border: 1px solid var(--border);
+      background: rgba(18,79,82,.45);
+      border-radius: 14px;
+      padding: 12px 14px;
+    }
+    details + details{ margin-top: 10px; }
+    summary{
+      cursor:pointer;
+      font-weight: 900;
+      color: rgba(255,255,255,.92);
+    }
+    details p{
+      margin: 8px 0 0;
+      color: var(--muted);
+    }
+
+    /* Waitlist */
+    .form-row{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      margin-top: 10px;
+    }
+    input[type="email"], input[type="text"]{
+      flex: 1 1 240px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      outline:none;
+      font-weight: 650;
+    }
+    .hint{
+      margin-top: 8px;
+      color: var(--muted2);
+      font-size: .92rem;
+    }
+
+    /* Footer */
+    footer{
+      margin-top: 34px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      color: var(--muted2);
+      font-size: .92rem;
+    }
+    .footgrid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 12px;
+    }
+    @media (max-width: 920px){ .footgrid{ grid-template-columns: 1fr; } }
+
+    /* Language blocks */
+    .lang-block{ display:none; }
+    .lang-block.active{ display:block; }
+
+    /* Direction helpers */
+    .ltr{ direction:ltr; text-align:left; }
+    .rtl{ direction:rtl; text-align:right; }
+
+    /* Small utilities */
+    .muted{ color: var(--muted2); }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.05);
+      color: rgba(255,255,255,.86);
+      font-weight: 800;
+      font-size: .88rem;
+      margin: 6px 6px 0 0;
     }
   </style>
 </head>
 
 <body>
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="logo">M</div>
+        <div>
+          <h3>MANASIKI <small class="muted">Smart Companion for Umrah & Hajj</small></h3>
+        </div>
+      </div>
 
-<header>
-  <h1>NUSUKA</h1>
-  <p><strong>Smart Digital Companion for Umrah & Hajj</strong></p>
-  <p>Helping pilgrims prepare, perform and complete their journey with confidence.</p>
+      <div class="nav">
+        <a href="#features" data-i18n="nav_features">المزايا</a>
+        <a href="#how" data-i18n="nav_how">كيف يعمل</a>
+        <a href="#b2b" data-i18n="nav_b2b">للوكالات</a>
+        <a href="#faq" data-i18n="nav_faq">الأسئلة</a>
+        <a href="#contact" data-i18n="nav_contact">تواصل</a>
 
-  <div class="cta">
-    <a href="mailto:contact@data-advans.com">Contact Us</a>
-    <a href="#about">Learn More</a>
+        <div class="lang">
+          <label for="langSelect" data-i18n="lang_label">اللغة</label>
+          <select id="langSelect" aria-label="Language selector">
+            <option value="ar" selected>AR</option>
+            <option value="en">EN</option>
+          </select>
+        </div>
+      </div>
+    </div>
   </div>
-</header>
 
-<section id="about">
-  <div class="box">
-    <h2>About the Project</h2>
-    <p>
-      NUSUKA is a technology-driven SaaS platform and mobile application designed to support pilgrims
-      before, during and after Umrah and Hajj.
-      The solution provides trusted guidance, preparation tools and offline-first access,
-      especially for first-time pilgrims, seniors and families.
-    </p>
+  <div class="wrap">
+
+    <!-- HERO -->
+    <div class="hero" id="top">
+      <div class="hero-grid">
+        <div class="hero-card">
+          <div class="badge" data-i18n="hero_badge">MVP قيد الإطلاق • Offline-First • متعدد اللغات</div>
+
+          <!-- AR -->
+          <div class="lang-block active rtl" data-lang="ar">
+            <h1>مناسكي يساعد المعتمر والحاج خطوة بخطوة… بثقة وطمأنينة</h1>
+            <p>
+              منصة رقمية (تطبيق + SaaS) لتسهيل الاستعداد، وتنظيم الرحلة، ومرافقة أداء المناسك
+              عبر إرشاد تعليمي واضح <strong>(غير إفتائي وغير رسمي)</strong> مع تجربة تعمل دون اتصال بالإنترنت.
+            </p>
+
+            <div class="cta">
+              <a class="btn primary" href="#contact">انضم لقائمة الانتظار</a>
+              <a class="btn" href="#features">اكتشف المزايا</a>
+              <a class="btn" href="mailto:contact@data-advans.com?subject=MANASIKI%20-%20Partnership%20/%20Info">شراكة / تعاون</a>
+            </div>
+
+            <div style="margin-top:12px">
+              <span class="pill">✔ مناسب لكبار السن</span>
+              <span class="pill">✔ مناسب للعائلات والمجموعات</span>
+              <span class="pill">✔ محتوى نصي وصوتي</span>
+              <span class="pill">✔ B2B للوكالات</span>
+            </div>
+
+            <div class="note">
+              <strong>مهم:</strong> المناسكي لا يقدم فتاوى شرعية ولا يمثل جهة رسمية؛ بل يقدم إرشادًا تعليميًا منظّمًا ومحتوى توعويًا.
+            </div>
+          </div>
+
+          <!-- EN -->
+          <div class="lang-block ltr" data-lang="en">
+            <h1>MANASIKI guides pilgrims step-by-step — calmly and confidently</h1>
+            <p>
+              A digital companion (App + SaaS) to help pilgrims prepare, organize, and perform Umrah & Hajj with clear
+              educational guidance <strong>(non-fatwa, not an official authority)</strong> and an offline-first experience.
+            </p>
+
+            <div class="cta">
+              <a class="btn primary" href="#contact">Join the Waitlist</a>
+              <a class="btn" href="#features">Explore Features</a>
+              <a class="btn" href="mailto:contact@data-advans.com?subject=MANASIKI%20-%20Partnership%20/%20Info">Partnership</a>
+            </div>
+
+            <div style="margin-top:12px">
+              <span class="pill">✔ Senior-friendly</span>
+              <span class="pill">✔ Families & groups</span>
+              <span class="pill">✔ Text + Audio</span>
+              <span class="pill">✔ B2B for agencies</span>
+            </div>
+
+            <div class="note">
+              <strong>Note:</strong> MANASIKI does not issue religious rulings and is not an official platform; it provides structured educational guidance and practical preparation tools.
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-side">
+          <!-- AR -->
+          <div class="mini lang-block active rtl" data-lang="ar">
+            <h4>لماذا الآن؟</h4>
+            <p>تزايد الاعتماد على الخدمات الرقمية في رحلة العمرة والحج، والحاجة لتجربة مبسطة وموثوقة تعمل دون إنترنت.</p>
+          </div>
+          <div class="mini lang-block active rtl" data-lang="ar">
+            <h4>لمن؟</h4>
+            <p>المعتمرون والحجاج لأول مرة، كبار السن، العائلات، والمجموعات… إضافة إلى وكالات العمرة والحج.</p>
+          </div>
+          <div class="mini lang-block active rtl" data-lang="ar">
+            <h4>ماذا يميزنا؟</h4>
+            <p>إرشاد منظم + قوائم تحضير + وضع كبير السن + محتوى صوتي + حلول SaaS للوكالات (لوحة متابعة وتخصيص).</p>
+          </div>
+
+          <!-- EN -->
+          <div class="mini lang-block ltr" data-lang="en">
+            <h4>Why now?</h4>
+            <p>Pilgrim journeys rely increasingly on digitized services—people need a simple, trusted, offline-first companion.</p>
+          </div>
+          <div class="mini lang-block ltr" data-lang="en">
+            <h4>Who is it for?</h4>
+            <p>First-time pilgrims, seniors, families & groups—plus Umrah/Hajj agencies seeking better coordination.</p>
+          </div>
+          <div class="mini lang-block ltr" data-lang="en">
+            <h4>What makes it different?</h4>
+            <p>Structured guidance + preparation checklists + senior mode + audio + optional B2B SaaS dashboards.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEATURES -->
+    <section id="features">
+      <div class="section-title">
+        <h2 class="lang-block active rtl" data-lang="ar">المزايا الأساسية</h2>
+        <h2 class="lang-block ltr" data-lang="en">Core Features</h2>
+        <small class="lang-block active rtl" data-lang="ar">مصمم لتجربة بسيطة وفعّالة</small>
+        <small class="lang-block ltr" data-lang="en">Designed for clarity & peace of mind</small>
+      </div>
+
+      <div class="grid">
+        <div class="card span-6">
+          <h3 class="lang-block active rtl" data-lang="ar">إرشاد خطوة بخطوة (تعليمي)</h3>
+          <h3 class="lang-block ltr" data-lang="en">Step-by-step educational guidance</h3>
+          <p class="lang-block active rtl" data-lang="ar">
+            تسلسل واضح للمناسك، تنبيهات سياقية، أخطاء شائعة يجب تجنبها، وإرشادات عملية لتقليل التوتر أثناء الأداء.
+          </p>
+          <p class="lang-block ltr" data-lang="en">
+            Clear ritual flow, contextual reminders, common mistakes to avoid, and practical tips to reduce stress.
+          </p>
+        </div>
+
+        <div class="card span-6">
+          <h3 class="lang-block active rtl" data-lang="ar">Offline-First</h3>
+          <h3 class="lang-block ltr" data-lang="en">Offline-First</h3>
+          <p class="lang-block active rtl" data-lang="ar">
+            يعمل دون اتصال بالإنترنت عند الحاجة: نصوص، قوائم، وإرشادات أساسية محفوظة على الجهاز.
+          </p>
+          <p class="lang-block ltr" data-lang="en">
+            Works when connectivity is limited: essential texts, checklists, and guidance stored on-device.
+          </p>
+        </div>
+
+        <div class="card span-4">
+          <h3 class="lang-block active rtl" data-lang="ar">محتوى متعدد اللغات</h3>
+          <h3 class="lang-block ltr" data-lang="en">Multilingual content</h3>
+          <p class="lang-block active rtl" data-lang="ar">العربية والإنجليزية كبداية، مع قابلية إضافة لغات أخرى (FR/UR/ID).</p>
+          <p class="lang-block ltr" data-lang="en">Arabic and English first, expandable to more languages (FR/UR/ID).</p>
+        </div>
+
+        <div class="card span-4">
+          <h3 class="lang-block active rtl" data-lang="ar">وضع كبار السن</h3>
+          <h3 class="lang-block ltr" data-lang="en">Senior mode</h3>
+          <p class="lang-block active rtl" data-lang="ar">واجهة مبسطة، خط أكبر، خطوات أقل، وتركيز على الصوت.</p>
+          <p class="lang-block ltr" data-lang="en">Simplified UI, larger text, fewer taps, and audio-first options.</p>
+        </div>
+
+        <div class="card span-4">
+          <h3 class="lang-block active rtl" data-lang="ar">قوائم تحضير ذكية</h3>
+          <h3 class="lang-block ltr" data-lang="en">Smart preparation checklists</h3>
+          <p class="lang-block active rtl" data-lang="ar">وثائق، صحة، حقيبة السفر، تنظيم الوقت، ونصائح عملية قبل الانطلاق.</p>
+          <p class="lang-block ltr" data-lang="en">Documents, health, packing, time planning, and practical pre-departure tips.</p>
+        </div>
+
+        <div class="card span-12">
+          <h3 class="lang-block active rtl" data-lang="ar">محتوى صوتي (اختياري في النسخة Premium)</h3>
+          <h3 class="lang-block ltr" data-lang="en">Audio guidance (optional in Premium)</h3>
+          <p class="lang-block active rtl" data-lang="ar">
+            تشغيل صوتي منظم يرافق المستخدم أثناء المناسك، مع وضع صامت للمناطق المزدحمة، وإمكانية التحميل للاستخدام دون إنترنت.
+          </p>
+          <p class="lang-block ltr" data-lang="en">
+            Structured audio companion for rituals, with a silent mode for crowded areas and downloads for offline use.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how">
+      <div class="section-title">
+        <h2 class="lang-block active rtl" data-lang="ar">كيف يعمل</h2>
+        <h2 class="lang-block ltr" data-lang="en">How it works</h2>
+        <small class="lang-block active rtl" data-lang="ar">من التحضير إلى العودة</small>
+        <small class="lang-block ltr" data-lang="en">From preparation to completion</small>
+      </div>
+
+      <div class="grid">
+        <div class="card span-4">
+          <h3 class="lang-block active rtl" data-lang="ar">1) قبل السفر</h3>
+          <h3 class="lang-block ltr" data-lang="en">1) Before travel</h3>
+          <p class="lang-block active rtl" data-lang="ar">تجهيز قوائم الوثائق والصحة والحقائب، وفهم سريع للمراحل الأساسية.</p>
+          <p class="lang-block ltr" data-lang="en">Build your document/health/packing checklist and learn the journey flow.</p>
+        </div>
+
+        <div class="card span-4">
+          <h3 class="lang-block active rtl" data-lang="ar">2) أثناء المناسك</h3>
+          <h3 class="lang-block ltr" data-lang="en">2) During rituals</h3>
+          <p class="lang-block active rtl" data-lang="ar">إرشاد تعليمي خطوة بخطوة، تذكيرات سياقية، ووضع كبار السن.</p>
+          <p class="lang-block ltr" data-lang="en">Step-by-step guidance, contextual reminders, and senior-friendly mode.</p>
+        </div>
+
+        <div class="card span-4">
+          <h3 class="lang-block active rtl" data-lang="ar">3) بعد الرحلة</h3>
+          <h3 class="lang-block ltr" data-lang="en">3) After the journey</h3>
+          <p class="lang-block active rtl" data-lang="ar">ملخص شخصي، ملاحظات، وقائمة متابعة لما بعد العودة (اختياري).</p>
+          <p class="lang-block ltr" data-lang="en">Personal summary, notes, and optional post-return checklist.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- B2B -->
+    <section id="b2b">
+      <div class="section-title">
+        <h2 class="lang-block active rtl" data-lang="ar">حلول للوكالات (B2B SaaS)</h2>
+        <h2 class="lang-block ltr" data-lang="en">For Agencies (B2B SaaS)</h2>
+        <small class="lang-block active rtl" data-lang="ar">اختياري — قابل للتخصيص (White-Label)</small>
+        <small class="lang-block ltr" data-lang="en">Optional — customizable (White-Label)</small>
+      </div>
+
+      <div class="grid">
+        <div class="card span-8">
+          <h3 class="lang-block active rtl" data-lang="ar">لوحة متابعة للمجموعات</h3>
+          <h3 class="lang-block ltr" data-lang="en">Group coordination dashboard</h3>
+
+          <ul class="list lang-block active rtl" data-lang="ar">
+            <li>إدارة مجموعات الحجاج/المعتمرين (قوائم، ملفات، ملاحظات)</li>
+            <li>رسائل إرشادية وتنبيهات تنظيمية (غير دينية)</li>
+            <li>مواد تحضير موحدة حسب برنامج الرحلة</li>
+            <li>تقارير بسيطة تساعد على تحسين التجربة</li>
+          </ul>
+
+          <ul class="list lang-block ltr" data-lang="en">
+            <li>Manage pilgrim groups (lists, notes, files)</li>
+            <li>Operational notifications (non-religious)</li>
+            <li>Standardized pre-travel materials per itinerary</li>
+            <li>Lightweight reporting to improve service quality</li>
+          </ul>
+
+          <div class="note">
+            <span class="lang-block active rtl" data-lang="ar"><strong>White-Label:</strong> شعار الوكالة + ألوان + روابط الدعم.</span>
+            <span class="lang-block ltr" data-lang="en"><strong>White-Label:</strong> agency logo + colors + support links.</span>
+          </div>
+        </div>
+
+        <div class="card span-4">
+          <h3 class="lang-block active rtl" data-lang="ar">تكاملات مستقبلية</h3>
+          <h3 class="lang-block ltr" data-lang="en">Future integrations</h3>
+          <p class="lang-block active rtl" data-lang="ar">
+            تكاملات تقنية مع أدوات الحجز/CRM وخدمات الدعم… حسب المتطلبات التنظيمية وسوق الإطلاق.
+          </p>
+          <p class="lang-block ltr" data-lang="en">
+            Integrations with booking/CRM/support tools—depending on market and regulatory requirements.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROADMAP -->
+    <section id="roadmap">
+      <div class="section-title">
+        <h2 class="lang-block active rtl" data-lang="ar">خارطة الطريق</h2>
+        <h2 class="lang-block ltr" data-lang="en">Roadmap</h2>
+        <small class="lang-block active rtl" data-lang="ar">MVP → إطلاق → توسع</small>
+        <small class="lang-block ltr" data-lang="en">MVP → launch → scale</small>
+      </div>
+
+      <div class="grid">
+        <div class="card span-4">
+          <h3 class="lang-block active rtl" data-lang="ar">المرحلة 1 — MVP</h3>
+          <h3 class="lang-block ltr" data-lang="en">Phase 1 — MVP</h3>
+          <p class="lang-block active rtl" data-lang="ar">إرشاد أساسي + قوائم تحضير + لغتان + وضع كبار السن + Offline.</p>
+          <p class="lang-block ltr" data-lang="en">Core guidance + checklists + 2 languages + senior mode + offline.</p>
+        </div>
+
+        <div class="card span-4">
+          <h3 class="lang-block active rtl" data-lang="ar">المرحلة 2 — Premium</h3>
+          <h3 class="lang-block ltr" data-lang="en">Phase 2 — Premium</h3>
+          <p class="lang-block active rtl" data-lang="ar">محتوى صوتي، تجربة محسّنة، تنزيلات، وإضافات للمجموعات.</p>
+          <p class="lang-block ltr" data-lang="en">Audio companion, improved UX, downloads, and group tools.</p>
+        </div>
+
+        <div class="card span-4">
+          <h3 class="lang-block active rtl" data-lang="ar">المرحلة 3 — B2B</h3>
+          <h3 class="lang-block ltr" data-lang="en">Phase 3 — B2B</h3>
+          <p class="lang-block active rtl" data-lang="ar">لوحة وكالة + White-Label + تقارير + تكاملات حسب السوق.</p>
+          <p class="lang-block ltr" data-lang="en">Agency dashboard + white-label + reporting + market-based integrations.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <div class="section-title">
+        <h2 class="lang-block active rtl" data-lang="ar">أسئلة شائعة</h2>
+        <h2 class="lang-block ltr" data-lang="en">FAQ</h2>
+        <small class="lang-block active rtl" data-lang="ar">شفافية قبل كل شيء</small>
+        <small class="lang-block ltr" data-lang="en">Transparency first</small>
+      </div>
+
+      <details open class="lang-block active rtl" data-lang="ar">
+        <summary>هل مناسكي منصة رسمية؟</summary>
+        <p>لا. مناسكي مشروع تقني مستقل، ولا يمثل جهة حكومية. نركز على الإرشاد التعليمي والتنظيمي وليس الإجراءات الرسمية.</p>
+      </details>
+      <details class="lang-block active rtl" data-lang="ar">
+        <summary>هل تقدمون فتاوى شرعية؟</summary>
+        <p>لا. لا نقدم فتاوى. نقدم محتوى توعويًا وإرشادًا تعليميًا منظّمًا فقط.</p>
+      </details>
+      <details class="lang-block active rtl" data-lang="ar">
+        <summary>هل يعمل بدون إنترنت؟</summary>
+        <p>نعم، نخطط لتجربة Offline-First بحيث تكون العناصر الأساسية متاحة دون اتصال.</p>
+      </details>
+
+      <details open class="lang-block ltr" data-lang="en">
+        <summary>Is MANASIKI an official platform?</summary>
+        <p>No. MANASIKI is an independent tech project and does not represent any government entity.</p>
+      </details>
+      <details class="lang-block ltr" data-lang="en">
+        <summary>Do you provide fatwas?</summary>
+        <p>No. We do not issue religious rulings. We provide structured educational guidance and practical tools.</p>
+      </details>
+      <details class="lang-block ltr" data-lang="en">
+        <summary>Does it work offline?</summary>
+        <p>Yes. We are building an offline-first experience so key content remains accessible with limited connectivity.</p>
+      </details>
+    </section>
+
+    <!-- CONTACT / WAITLIST -->
+    <section id="contact">
+      <div class="section-title">
+        <h2 class="lang-block active rtl" data-lang="ar">تواصل / قائمة الانتظار</h2>
+        <h2 class="lang-block ltr" data-lang="en">Contact / Waitlist</h2>
+        <small class="lang-block active rtl" data-lang="ar">لشراكات الوكالات أو تجربة مبكرة</small>
+        <small class="lang-block ltr" data-lang="en">For partnerships or early access</small>
+      </div>
+
+      <div class="grid">
+        <div class="card span-8">
+          <h3 class="lang-block active rtl" data-lang="ar">سجّل اهتمامك (بريد إلكتروني)</h3>
+          <h3 class="lang-block ltr" data-lang="en">Register your interest (email)</h3>
+
+          <!-- Lightweight "mailto" form (works on GitHub Pages without backend) -->
+          <form id="waitlistForm" onsubmit="return openMailto(event)">
+            <div class="form-row">
+              <input type="text" id="name" name="name" placeholder="الاسم / Name" autocomplete="name" />
+              <input type="email" id="email" name="email" placeholder="البريد الإلكتروني / Email" required autocomplete="email" />
+            </div>
+            <div class="form-row">
+              <input type="text" id="role" name="role" placeholder="فرد / وكالة / شركة (اختياري) | Individual / Agency (optional)" />
+              <button class="btn primary" type="submit" data-i18n="waitlist_btn">إرسال</button>
+            </div>
+            <div class="hint lang-block active rtl" data-lang="ar">
+              *سيتم فتح بريدك لإرسال رسالة جاهزة إلى فريقنا (لا يوجد تخزين بيانات على الموقع).
+            </div>
+            <div class="hint lang-block ltr" data-lang="en">
+              *Your email app will open with a prefilled message (no data is stored on this website).
+            </div>
+          </form>
+
+          <div class="note">
+            <span class="lang-block active rtl" data-lang="ar"><strong>للشراكات:</strong> راسلنا مباشرة على <a href="mailto:contact@data-advans.com">contact@data-advans.com</a></span>
+            <span class="lang-block ltr" data-lang="en"><strong>For partnerships:</strong> email us at <a href="mailto:contact@data-advans.com">contact@data-advans.com</a></span>
+          </div>
+        </div>
+
+        <div class="card span-4">
+          <h3 class="lang-block active rtl" data-lang="ar">روابط مهمة</h3>
+          <h3 class="lang-block ltr" data-lang="en">Useful links</h3>
+          <p class="lang-block active rtl" data-lang="ar">
+            للجهات الرسمية والخدمات الرقمية المرتبطة بالعمرة والحج، ننصح بالرجوع للمنصات الرسمية:
+          </p>
+          <p class="lang-block ltr" data-lang="en">
+            For official procedures and services, refer to official platforms:
+          </p>
+
+          <ul class="list rtl lang-block active" data-lang="ar">
+            <li><a href="https://www.haj.gov.sa/" target="_blank" rel="noopener">وزارة الحج والعمرة</a></li>
+            <li><a href="https://umrah.nusuk.sa/" target="_blank" rel="noopener">Nusuk Umrah</a></li>
+            <li><a href="https://hajj.nusuk.sa/" target="_blank" rel="noopener">Nusuk Hajj</a></li>
+          </ul>
+
+          <ul class="list ltr lang-block" data-lang="en">
+            <li><a href="https://www.haj.gov.sa/" target="_blank" rel="noopener">Ministry of Hajj & Umrah</a></li>
+            <li><a href="https://umrah.nusuk.sa/" target="_blank" rel="noopener">Nusuk Umrah</a></li>
+            <li><a href="https://hajj.nusuk.sa/" target="_blank" rel="noopener">Nusuk Hajj</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footgrid">
+        <div>
+          <strong>MANASIKI</strong>
+          <div class="muted lang-block active rtl" data-lang="ar" style="margin-top:6px;">
+            مشروع SaaS / تطبيق في مرحلة MVP — إرشاد تعليمي (غير إفتائي) — لا يمثل جهة رسمية.
+          </div>
+          <div class="muted lang-block ltr" data-lang="en" style="margin-top:6px;">
+            MVP-stage SaaS/App — educational guidance (non-fatwa) — not an official authority.
+          </div>
+          <div class="muted" style="margin-top:10px;">
+            © <span id="year"></span> Data ADVANS
+          </div>
+        </div>
+
+        <div class="muted">
+          <div><strong class="muted">Contact</strong></div>
+          <div style="margin-top:6px;"><a href="mailto:contact@data-advans.com">contact@data-advans.com</a></div>
+          <div style="margin-top:10px;">
+            <a href="#top" class="muted" style="font-weight:800;">↑ Back to top</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
   </div>
-</section>
 
-<section>
-  <div class="box">
-    <h2>Key Features</h2>
-    <ul>
-      <li>Step-by-step ritual guidance (educational, non-fatwa)</li>
-      <li>Multilingual content (text & audio)</li>
-      <li>Offline-first mobile experience</li>
-      <li>Preparation checklists (documents, health, logistics)</li>
-      <li>Senior-friendly and family-friendly interface</li>
-      <li>SaaS tools for Umrah & Hajj agencies (B2B)</li>
-    </ul>
-  </div>
-</section>
+  <script>
+    // Default: AR
+    const langSelect = document.getElementById('langSelect');
+    const blocks = document.querySelectorAll('.lang-block');
+    const htmlEl = document.documentElement;
 
-<section>
-  <div class="box">
-    <h2>Vision & Compliance</h2>
-    <p>
-      The project aligns with digital transformation initiatives and aims to enhance the experience
-      of pilgrims through responsible technology.
-      NUSUKA does not provide religious rulings, but offers structured educational guidance
-      based on trusted sources and best practices.
-    </p>
-  </div>
-</section>
+    function setLang(lang){
+      // Toggle blocks
+      blocks.forEach(b => {
+        const bLang = b.getAttribute('data-lang');
+        if(!bLang) return;
+        b.classList.toggle('active', bLang === lang);
+      });
 
-<!-- ARABIC SECTION -->
-<section class="ar">
-  <div class="box">
-    <h2>نبذة عن المشروع</h2>
-    <p>
-      نسُكَة (NUSUKA) هي منصة تقنية (SaaS) وتطبيق ذكي يهدف إلى مرافقة الحجاج والمعتمرين
-      قبل وأثناء وبعد أداء العمرة أو الحج.
-      توفر المنصة إرشادًا توعويًا منظمًا، وأدوات تحضير رقمية، وتجربة استخدام تعمل دون اتصال بالإنترنت،
-      مع اهتمام خاص بكبار السن والعائلات.
-    </p>
-  </div>
-</section>
+      // Update direction + lang attribute
+      if(lang === 'ar'){
+        htmlEl.setAttribute('lang','ar');
+        htmlEl.setAttribute('dir','rtl');
+      }else{
+        htmlEl.setAttribute('lang','en');
+        htmlEl.setAttribute('dir','ltr');
+      }
 
-<section class="ar">
-  <div class="box">
-    <h2>المزايا الرئيسية</h2>
-    <ul>
-      <li>إرشاد تعليمي خطوة بخطوة لأداء المناسك (غير إفتائي)</li>
-      <li>محتوى متعدد اللغات (نصوص وصوتيات)</li>
-      <li>تشغيل دون اتصال بالإنترنت</li>
-      <li>قوائم تحضير قبل السفر (وثائق، صحة، تنظيم)</li>
-      <li>واجهة مبسطة لكبار السن والعائلات</li>
-      <li>حلول SaaS موجهة لوكالات العمرة والحج</li>
-    </ul>
-  </div>
-</section>
+      // Update nav labels (minimal)
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        const dict = {
+          ar: {
+            nav_features: "المزايا",
+            nav_how: "كيف يعمل",
+            nav_b2b: "للوكالات",
+            nav_faq: "الأسئلة",
+            nav_contact: "تواصل",
+            lang_label: "اللغة",
+            hero_badge: "MVP قيد الإطلاق • Offline-First • متعدد اللغات",
+            waitlist_btn: "إرسال"
+          },
+          en: {
+            nav_features: "Features",
+            nav_how: "How it works",
+            nav_b2b: "For agencies",
+            nav_faq: "FAQ",
+            nav_contact: "Contact",
+            lang_label: "Language",
+            hero_badge: "Launching MVP • Offline-First • Multilingual",
+            waitlist_btn: "Send"
+          }
+        };
+        if(dict[lang] && dict[lang][key]) el.textContent = dict[lang][key];
+      });
 
-<section class="ar">
-  <div class="box">
-    <h2>الرؤية والتنظيم</h2>
-    <p>
-      ينسجم المشروع مع توجهات التحول الرقمي، ويهدف إلى تحسين تجربة ضيوف الرحمن
-      باستخدام حلول تقنية موثوقة وقابلة للتوسع،
-      مع الالتزام بالضوابط التنظيمية وعدم تقديم أي فتاوى شرعية.
-    </p>
-  </div>
-</section>
+      // Keep selector synced
+      langSelect.value = lang;
+    }
 
-<footer>
-  <p>© 2026 Data ADVANS — Early-stage SaaS Project</p>
-  <p>Contact: contact@data-advans.com</p>
-</footer>
+    langSelect.addEventListener('change', (e) => setLang(e.target.value));
 
+    // Set current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Waitlist mailto (no backend needed)
+    function openMailto(event){
+      event.preventDefault();
+      const name = (document.getElementById('name').value || '').trim();
+      const email = (document.getElementById('email').value || '').trim();
+      const role = (document.getElementById('role').value || '').trim();
+
+      const subject = encodeURIComponent("MANASIKI — Waitlist / Partnership");
+      const body = encodeURIComponent(
+        `Hello MANASIKI team,\n\n` +
+        `I would like to join the waitlist / request more information.\n\n` +
+        `Name: ${name}\n` +
+        `Email: ${email}\n` +
+        `Role (optional): ${role}\n\n` +
+        `Message:\n` +
+        `- I'm interested in: (Umrah / Hajj / both)\n` +
+        `- Target users: (individuals / families / seniors / agencies)\n` +
+        `- Notes:\n\n` +
+        `Best regards,\n${name || ''}`
+      );
+
+      window.location.href = `mailto:contact@data-advans.com?subject=${subject}&body=${body}`;
+      return false;
+    }
+    window.openMailto = openMailto;
+
+    // Initialize default language AR
+    setLang('ar');
+  </script>
 </body>
 </html>
